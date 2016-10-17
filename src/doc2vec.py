@@ -50,7 +50,7 @@ my_model.save_word2vec_format(my_dir + 'vectors.txt',binary=False)
 sources = (my_dir+'text_train',my_dir+'text_test')
 
 docs = TaggedDocumentLines(sources)
-model = models.Doc2Vec(dm=0,size=100,iter=20,min_count=2,workers=3,dbow_words=1)
+model = models.Doc2Vec(dm=0,size=100,iter=20,min_count=2,workers=3,dbow_words=1,sample=1e-5,negative=10)
 
 model.build_vocab(docs)
 model.intersect_word2vec_format(my_dir+'vectors.txt',binary=False)

@@ -39,7 +39,7 @@ def my_word2vec(my_file):
     #sents = []
     #for line in codecs.open(my_file,'r','utf8'):
     #    sents.append(line.split())
-    model = Word2Vec(sents,min_count=2,size=100,sample=1e-5,iter=20,workers=3,negative=10)
+    model = Word2Vec(sents,min_count=2,size=100,sample=1e-5,iter=20,workers=3,negative=15)
     model.save(my_dir + 'word2vec.model')
 
 #sents_file = codecs.open('sents_file.data','w','utf8')
