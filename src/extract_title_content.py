@@ -7,6 +7,7 @@ from gensim.models import Word2Vec
 
 tags = ['n','v','a','r','d','j','t','g','f','i','m','s']
 re_h=re.compile('</?\w+[^>]*>')
+my_dir = '../result/'
 
 def handle_one_line(my_str):
     if my_str.find('<contenttitle>') >=0 or my_str.find('<content>') >= 0:
@@ -39,9 +40,9 @@ def my_word2vec(my_file):
     #for line in codecs.open(my_file,'r','utf8'):
     #    sents.append(line.split())
     model = Word2Vec(sents,min_count=2,size=100,sample=1e-5,iter=20,workers=3,negative=10)
-    model.save('./word2vec.model')
+    model.save(my_dir + 'word2vec.model')
 
 #sents_file = codecs.open('sents_file.data','w','utf8')
 #for line in codecs.open('./news_sohusite_xml.dat','r','gb18030'):
 #    handle_one_line(line)
-my_word2vec('./sents_file.data')
+my_word2vec(my_dir+'sents_file.data')

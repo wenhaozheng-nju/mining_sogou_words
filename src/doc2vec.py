@@ -3,6 +3,7 @@ import codecs
 from gensim import corpora, models, matutils
 import numpy as np
 
+my_dir = "../result/"
 
 class TaggedDocumentLines(object):
     def __init__(self, filenamelist):
@@ -43,24 +44,24 @@ def gen_doc2vec_dataset(trainY ,doc2vecmodel, vecdim, data_path_list):
     return traindataset, testdataset
 
 
-my_model = models.Word2Vec.load('./word2vec.model')
-my_model.save_word2vec_format('./vectors.txt',binary=False)
+my_model = models.Word2Vec.load(my_dir+'word2vec.model')
+my_model.save_word2vec_format(my_dir + 'vectors.txt',binary=False)
 
-sources = ('./text_train','./text_test')
+sources = (my_dir+'text_train',my_dir+'text_test')
 
 docs = TaggedDocumentLines(sources)
 model = models.Doc2Vec(dm=0,size=100,iter=20,min_count=2,workers=3,dbow_words=1)
 
 model.build_vocab(docs)
-model.intersect_word2vec_format('./vectors.txt',binary=False)
+model.intersect_word2vec_format(my_dir+'vectors.txt',binary=False)
 model.train(docs)
-model.save('./doc2vec.model')
+model.save(my_dir+'doc2vec.model')
 
-train_data_path = './docvec_feature_train'
-test_data_path = './docvec_feature_test'
+train_data_path = my_dir+'docvec_feature_train'
+test_data_path = my_dir+'docvec_feature_test'
 data_path_list = [train_data_path,test_data_path]
 topicnum = 100
-trainY = get_trainY('./trainY.npy')
-doc2vec_model = get_doc2vec_model('./doc2vec.model')
+trainY = get_trainY(my_dir + 'trainY.npy')
+doc2vec_model = get_doc2vec_model(my_dir + 'doc2vec.model')
 gen_doc2vec_dataset(trainY,doc2vec_model, topicnum, data_path_list)
 
